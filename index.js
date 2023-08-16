@@ -1,31 +1,29 @@
-console.log('Плыл по морю');
-
-process.nextTick(() => {
-  console.log('Чемодан,');
-});
-
-process.nextTick(() => {
-  console.log('В чемодане');
-});
-
 setTimeout(() => {
   console.log('Был диван,');
 }, 0);
-
-setImmediate(() => {
-  console.log('На диване');
-});
 
 setTimeout(() => {
   console.log('Выйди вон!');
 }, 10);
 
-setImmediate(() => {
-  console.log('Ехал слон.');
+setTimeout(() => {
+  console.log('На диване');
+});
+
+process.nextTick(() => {
+  console.log('Чемодан,');
 });
 
 setImmediate(() => {
   console.log('Кто не верит –');
 });
 
+setTimeout(() => {
+  console.log('Ехал слон.');
+}, 0);
 
+process.nextTick(() => {
+  console.log('В чемодане');
+});
+
+console.log('Плыл по морю');
