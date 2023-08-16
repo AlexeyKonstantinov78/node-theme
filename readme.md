@@ -11,3 +11,17 @@
 [Движок JavaScript: что внутри (VPN)](https://medium.com/nuances-of-programming/%D0%B4%D0%B2%D0%B8%D0%B6%D0%BE%D0%BA-javascript-%D1%87%D1%82%D0%BE-%D0%B2%D0%BD%D1%83%D1%82%D1%80%D0%B8-f0db9b988b90)<br>
 [The V8 Engine and JavaScript Optimization Tips](https://www.digitalocean.com/community/tutorials/js-v8-engine)<br>
 
+### Задание
+
+
+Исправьте код, чтобы получить правильную считалочку<br>
+Плыл по морю<br>
+Чемодан,<br>
+В чемодане<br>
+Был диван,<br>
+На диване<br>
+Ехал слон.<br>
+Кто не верит –<br>
+Выйди вон!<br>
+
+console.log менять местами нельзя, но вы можете менять местами функции setTimeout, setImmediate и process.nextTick
