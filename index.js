@@ -1,14 +1,17 @@
 setTimeout(() => {
+  console.log('Выйди вон!');
+}, 10);
+
+setTimeout(() => {
   console.log('Был диван,');
 }, 0);
 
-
-setTimeout(() => {
-  console.log('На диване');
-});
-
 process.nextTick(() => {
   console.log('Чемодан,');
+});
+
+setImmediate(() => {
+  console.log('На диване');
 });
 
 setImmediate(() => {
@@ -17,10 +20,6 @@ setImmediate(() => {
 
 setImmediate(() => {
   console.log('Кто не верит –');
-});
-
-setImmediate(() => {
-  console.log('Выйди вон!');
 });
 
 process.nextTick(() => {
