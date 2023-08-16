@@ -41,4 +41,4 @@ fs.writeFile('text.txt', 'Hello Node.js', 'utf8', () => {
   console.log('G writeFile', performance.now());
 });
 
-console.log('H sync');
+console.log('H sync', performance.now());
