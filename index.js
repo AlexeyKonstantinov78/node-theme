@@ -1,32 +1,32 @@
-setTimeout(() => {
+setTimeout(() => {              // 8 вывод
   console.log('Выйди вон!');
 }, 10);
 
 setTimeout(() => {
-  console.log('Был диван,');
+  console.log('Был диван,');    // 4 вывод
 }, 0);
 
-process.nextTick(() => {
+process.nextTick(() => {        // 2 вывод
   console.log('Чемодан,');
 });
 
-setImmediate(() => {
+setImmediate(() => {            // 5 вывод
   console.log('На диване');
 });
 
-setImmediate(() => {
+setImmediate(() => {            // 6 вывод
   console.log('Ехал слон.');
 });
 
-setImmediate(() => {
+setImmediate(() => {            // 7 вывод
   console.log('Кто не верит –');
 });
-
-process.nextTick(() => {
+ 
+process.nextTick(() => {        // 3 вывод
   console.log('В чемодане');
 });
 
-console.log('Плыл по морю');
+console.log('Плыл по морю');    // 1 вывод
 
 // setTimeout - 2 штуки
 // setImmediate - 3 штуки
