@@ -9,8 +9,8 @@ setTimeout(() => {
 });
 
 setTimeout(() => {
-  console.log('C setTimeout 100', performance.now());
-}, 100);
+  console.log('C setTimeout 7', performance.now());
+}, 7);
 
 setTimeout(() => {
   console.log('D setTimeout 0', performance.now());
