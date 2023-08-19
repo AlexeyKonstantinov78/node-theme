@@ -1,20 +1,23 @@
 // module emjs
 
-export const sayHello = (name = 'node.js') => {
+const sayHello = (name = 'node.js') => {
   console.log(`Hello ${name}`);
 };
 
-export const user = {
+const user = {
   firstName: 'Maks',
   lstName: 'Leskin',
 };
 
-export const map = new Map();
+const map = new Map();
 
-export class Car {
+class Car {
   constructor(brand, model, driver) {
     this.brand = brand;
     this.model = model;
     this.driver = driver;
   }
 }
+
+
+export { sayHello, user, map, Car };
