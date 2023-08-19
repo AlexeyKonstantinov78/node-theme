@@ -1,0 +1,10 @@
+{
+  "name": "mypackage",
+  "version": "1.0.0",
+  "author": "Aleksey Konstantinov <info@alekseykonstantinov.ru>",
+  "main": "main.js",  
+  "exports": {
+    "import": "./main.mjs",
+    "require": "./main.js"
+  }
+}
