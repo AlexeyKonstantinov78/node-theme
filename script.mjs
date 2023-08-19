@@ -1,13 +1,15 @@
 //EM JS
-import toExport from "./modules/toExport.mjs";
+const promise = import("./modules/toExport.mjs");
+console.log('promise: ', promise);
 
-const { sayHello, user, Car, map } = toExport;
+promise.then(({Car, map, user, sayHello}) => {
 
-const car = new Car('mini', 'cooper', user);
-
-console.log(car);
-
-sayHello(car.driver.firstName);
-
-map.set(car, user);
-console.log(map);
+  const car = new Car('mini', 'cooper', user);
+  
+  console.log(car);
+  
+  sayHello(car.driver.firstName);
+  
+  map.set(car, user);
+  console.log(map);
+});
