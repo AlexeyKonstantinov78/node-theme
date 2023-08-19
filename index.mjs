@@ -1,8 +1,10 @@
 import mpackage from 'mpackage';
-import { pow } from 'mpackage/pow.js';
 
+if (mpackage.name === 'pow') {
+  const { pow } = await import('mpackage/pow.js');
+  console.log(pow(2, 3));
+} else {
+  console.log('mpackage: ', mpackage);
+}
 
-console.log(pow(2, 3));
-
-console.log('mpackage: ', mpackage);
 
