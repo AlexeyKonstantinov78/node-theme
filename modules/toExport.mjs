@@ -20,4 +20,4 @@ class Car {
 }
 
 
-export { sayHello, user, map, Car };
+export default { sayHello, user, map, Car };

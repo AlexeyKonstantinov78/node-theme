@@ -1,10 +1,10 @@
 //EM JS
-import { sayHello, user, Car, map } from "./modules/toExport.mjs";
-const car = new Car('mini', 'cooper', user);
+import toExport from "./modules/toExport.mjs";
+const car = new toExport.Car('mini', 'cooper', toExport.user);
 
 console.log(car);
 
-sayHello(car.driver.firstName);
+toExport.sayHello(car.driver.firstName);
 
-map.set(car, user);
-console.log(map);
+toExport.map.set(car, toExport.user);
+console.log(toExport.map);
