@@ -1,0 +1,1 @@
+{"brand":"mini","model":"cooper","driver":{"firstName":"Maks","lstName":"Leskin"}}

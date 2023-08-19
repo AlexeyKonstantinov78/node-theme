@@ -2,7 +2,7 @@ const sayHello = (name = 'node.js') => {
   console.log(`Hello ${name}`);
 };
 
-const user = {
+exports.user = {
   firstName: 'Maks',
   lstName: 'Leskin',
 };
@@ -18,9 +18,6 @@ class Car {
 }
 
 // export COMMONDJS
-module.exports = {
-  sayHello,
-  Car,
-  map,
-  user
-};
+exports.Car = Car;
+exports.sayHello = sayHello;
+exports.map = map;
