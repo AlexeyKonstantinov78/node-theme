@@ -1,4 +1,4 @@
-const info = require('./mypackage');
+const info = require('mypackage');
 
 console.log(info({
   name: 'максим лескин',

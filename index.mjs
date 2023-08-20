@@ -1,4 +1,4 @@
-import info from './mypackage/main.mjs';
+import info from 'mypackage';
 
 console.log(info({
   name: 'максим лескин',
