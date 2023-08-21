@@ -1,7 +1,9 @@
 import info from 'mypackage';
 
-console.log(info({
+const obj = {
   name: 'максим лескин',
   dateBirth: '10.03.1987',
   purpose: 'карьерный рост',
-}));
+};
+
+console.log(info(obj));
