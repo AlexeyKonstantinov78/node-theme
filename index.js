@@ -1,7 +1,12 @@
 // события  Event Emmitter (патерн)
 import { EventEmitter } from 'node:events';
 
-class Ee extends EventEmitter { };
+class Ee extends EventEmitter {
+  emit(name, ...args) {
+    super.emit(name, ...args);
+    console.log('logger', name, ...args);
+  }
+};
 
 const ee = new Ee();
 
@@ -12,8 +17,6 @@ console.log(ee.getMaxListeners());
 const logger = (...arg) => {
   console.log('logger arg:', arg);
 };
-
-
 
 //напишем свое событие
 ee.addListener('foo', (x) => {
@@ -41,6 +44,10 @@ ee.prependListener('foo', (x) => {
   x.cia = 'шпион';
 });
 
+ee.on('error', (err) => {
+  console.log(err);
+});
+
 // инициалихзация события
 ee.emit('foo', { a: 1 });
 ee.emit('foo', { b: 1 });
@@ -55,9 +62,8 @@ ee.emit('foo', { a: 666 });
 ee.emit('foo', { b: 777 });
 ee.emit('foo', { c: 888 });
 ee.emit('bar', { c: 999 });
+ee.emit('error');
 
 // сколько листнеров навешано
 console.log(ee.listenerCount('foo'));
 console.log(ee.listeners());
-
-
