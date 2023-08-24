@@ -2,6 +2,20 @@
 import { EventEmitter } from 'node:events';
 
 class Ee extends EventEmitter {
+  constructor(name, age) {
+    super();
+    this.name = name;
+    this.age = age;
+  }
+
+  sleep(ms) {
+    const emit = this.emit;
+    this.emit = () => { };
+    setTimeout(() => {
+      this.emit = emit;
+    }, ms);
+  }
+
   emit(name, ...args) {
     super.emit(name, ...args);
     console.log('logger', name, ...args);
@@ -67,3 +81,28 @@ ee.emit('error');
 // сколько листнеров навешано
 console.log(ee.listenerCount('foo'));
 console.log(ee.listeners());
+
+const usee = new Ee({ name: 'Mark', age: 33 });
+
+usee.on('fo1', (x) => {
+  console.log('on fo1', x);
+});
+
+usee.on('bar1', (x) => {
+  console.log('on bar1', x);
+});
+
+usee.emit('bar1', { a: 1 });
+usee.emit('fo1', { b: 2 });
+
+usee.sleep(1000);
+
+setTimeout(() => {
+  usee.emit('bar1', { a: 3 });
+  usee.emit('fo1', { b: 4 });
+}, 500);
+
+setTimeout(() => {
+  usee.emit('bar1', { a: 5 });
+  usee.emit('fo1', { b: 6 });
+}, 1500);
