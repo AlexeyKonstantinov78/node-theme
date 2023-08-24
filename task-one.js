@@ -1,5 +1,6 @@
 import { EventEmitter } from 'node:events';
 
+//task one
 class Tick extends EventEmitter {
   constructor(count) {
     super();
@@ -20,5 +21,5 @@ class Tick extends EventEmitter {
 }
 
 const tick = new Tick(8);
-tick.on('tick', () => {});
-tick.emit('tick');
+tick.on('Tick', () => { });
+tick.emit('Tick');
