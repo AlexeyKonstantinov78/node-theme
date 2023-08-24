@@ -1,0 +1,35 @@
+{
+  "name": "packagewithpack",
+  "version": "1.0.0",
+  "description": "myfirst project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index"
+  },
+  "keywords": [
+    "package",
+    "task"
+  ],
+  "author": "Aleksey Konstantinov <info@alekseykonstantinov.ru>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlexeyKonstantinov78/node-theme/tree/node-theme-three-npm"
+  },
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "express": "^4.18.2",
+    "ws": "^8.13.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.47.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "gulp": "^4.0.2",
+    "nodemon": "^3.0.1",
+    "prettier": "^3.0.2"
+  }
+}
