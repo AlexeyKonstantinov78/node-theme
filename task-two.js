@@ -5,7 +5,27 @@ import { EventEmitter } from 'node:events';
 let name = '';
 let messag = '';
 
-class Mess extends EventEmitter { }
+class Mess extends EventEmitter {
+  constructor() {
+    super();
+    this.name = '';
+    this.mess = '';
+  }
+
+  sendMessage(username, message) {
+    this.name = username;
+    this.mess = message;
+  }
+
+  receiveMessage() {
+    console.log(name + ': ' + messag);
+  }
+
+  emit(name, ...args) {
+    super.emit(name, ...args);
+
+  }
+}
 
 const mess = new Mess();
 
