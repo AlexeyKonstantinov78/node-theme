@@ -32,21 +32,25 @@ fs.readdir('./files', (err, files) => {
   console.log(files);
 });
 
-fs.readdir('./', (err, files) => {
+
+fs.readdir('./files', (err, files) => {
   if (err) throw err;
   console.log(files);
-});
 
-// создать папку
-fs.mkdir('./newFolders', { recursive: true }, err => {
-  if (err) throw err;
-
-  console.log('Папка создана');
-
-  fs.copyFile('./files/result.txt', './newFolders/text.txt', err => {
+  // создать папку
+  fs.mkdir('./newFolders', { recursive: true }, err => {
     if (err) throw err;
-    console.log('файл скопирован');
+
+    console.log('Папка создана');
+
+    files.forEach(file => {
+      fs.copyFile(`./files/${file}`, `./newFolders/${file}`, err => {
+        if (err) throw err;
+        console.log(file, 'файл скопирован');
+      });
+    });
   });
 });
+
 
 console.log('App start');
