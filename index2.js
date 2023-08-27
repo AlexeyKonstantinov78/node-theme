@@ -1,4 +1,3 @@
-import { stat } from 'node:fs';
 import fs from 'node:fs/promises';
 
 const checkFileStats = async path => {
@@ -11,4 +10,4 @@ const checkFileStats = async path => {
   }
 };
 
-checkFileStats('./files/text.txt');
+checkFileStats('./files');
