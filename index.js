@@ -117,10 +117,30 @@ const app2 = async () => {
 // app2();
 
 const watcherStart = async (path) => {
-  const watcher = watch(path);
+  try {
+    let date = 0;
+    const chenges = [];
+    const watcher = watch(path);
 
-  for await (const event of watcher) {
-    console.log(event);
+    for await (const { eventType, filename } of watcher) {
+      if (Date.now() - date > 100) {
+        date = Date.now();
+
+        chenges.push({
+          date,
+          eventType,
+          filename,
+        });
+        console.log('\x1Bc'); //чистит консоль
+        chenges.forEach(({ date, eventType, filename }) => {
+          console.log(
+            `${new Date(date).toISOString()}: ${eventType} - ${filename}`
+          );
+        });
+      }
+    }
+  } catch (error) {
+    console.error(error.message);
   }
 };
 
