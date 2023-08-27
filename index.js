@@ -1,4 +1,7 @@
 import fs from 'node:fs/promises';
+import { readText } from './modules/readText.js';
+
+
 //эти методы являются синхоронными
 //чтение файла
 // const result = fs.readFileSync('./files/text.txt', 'utf8');
@@ -55,17 +58,11 @@ import fs from 'node:fs/promises';
 // промисифицированные методы
 
 
-const read = async () => {
-  try {
-    const rezult = await fs.readFile('./files/text.txt', 'utf8');
-    console.log(rezult);
-  } catch (err) {
-    console.error(err.message);
-  }
 
 
+const app = async () => {
+  console.log(await readText('./files/text.txt'));
 };
 
-read();
-
 console.log('App start');
+app();
