@@ -11,20 +11,21 @@ const callback = (err) => {
   }
 };
 
-const copyAllDir = async (sourceDir, targetDir, callback = () => {}) => {
+const copyAllDir = async (sourceDir, targetDir, callbac) => {
   try {
     if ((await stat(sourceDir)).isDirectory()) {
       const files = await readdir(sourceDir);
       mkdir(targetDir, { recursive: true });
+      console.log(`dir ${sourceDir}`);
       files.forEach(async file => {
-        await copyAllDir(`${sourceDir}/${file}`, `${targetDir}/${file}`, callback(null));
+        await copyAllDir(`${sourceDir}/${file}`, `${targetDir}/${file}`);
       });
     } else if ((await stat(sourceDir)).isFile()) {
       await copyFile(sourceDir, targetDir);
+      console.log('филе', sourceDir);
     }
-    if (callback !== null) callback(null);
   } catch (error) {
-    callback(error.message);
+    callbac(error);
   }
 };
 
