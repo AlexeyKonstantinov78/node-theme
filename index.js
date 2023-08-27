@@ -53,14 +53,19 @@ import fs from 'node:fs/promises';
 // });
 
 // промисифицированные методы
-fs.readFile('./files/text.txt', 'utf8')
-  .then(rezult => {
-    console.log('rezult: ', rezult);
-  })
-  .catch(err => {
+
+
+const read = async () => {
+  try {
+    const rezult = await fs.readFile('./files/text.txt', 'utf8');
+    console.log(rezult);
+  } catch (err) {
     console.error(err.message);
-  });
+  }
 
 
+};
+
+read();
 
 console.log('App start');
