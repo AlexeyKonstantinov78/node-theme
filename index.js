@@ -1,4 +1,4 @@
-import { readdir, mkdir, copyFile, unlink } from 'node:fs/promises';
+import { readdir, mkdir, copyFile, unlink, rm } from 'node:fs/promises';
 import { readText } from './modules/readText.js';
 import { write } from './modules/writeFileCustom.js';
 
@@ -85,8 +85,12 @@ const app2 = async () => {
           await copyFile(`./files/${file}`, `./newFolders/${file}`);
           console.log(file, 'файл скопирован');
 
-          setTimeout(async ()=> {
-            await unlink(`./files/${file}`);
+          // setTimeout(async ()=> {
+          //   await unlink(`./newFolders/${file}`);
+          //   console.log(`Файл удален ${file}`);
+          // }, 3000);
+          setTimeout(async () => {
+            await rm(`./newFolders/${file}`);
             console.log(`Файл удален ${file}`);
           }, 3000);
         });
