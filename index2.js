@@ -21,3 +21,18 @@ const checkFileStats = async path => {
 };
 
 checkFileStats('./files/text.txt');
+
+// дописываем в файл
+
+const appendToFile = async (filePath, data) => {
+  try {
+    await fs.appendFile(filePath, data);
+    console.log('Запись дописана');
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+appendToFile(
+  './files/text.txt',
+  `${new Date().toISOString()}: Допишем текст 1\n`);
