@@ -1,4 +1,4 @@
-import fs from 'node:fs';
+import fs from 'node:fs/promises';
 //эти методы являются синхоронными
 //чтение файла
 // const result = fs.readFileSync('./files/text.txt', 'utf8');
@@ -27,30 +27,40 @@ import fs from 'node:fs';
 // });
 
 // прочитать каталог
-fs.readdir('./files', (err, files) => {
-  if (err) throw err;
-  console.log(files);
-});
+// fs.readdir('./files', (err, files) => {
+//   if (err) throw err;
+//   console.log(files);
+// });
 
 
-fs.readdir('./files', (err, files) => {
-  if (err) throw err;
-  console.log(files);
+// fs.readdir('./files', (err, files) => {
+//   if (err) throw err;
+//   console.log(files);
 
-  // создать папку
-  fs.mkdir('./newFolders', { recursive: true }, err => {
-    if (err) throw err;
+//   // создать папку
+//   fs.mkdir('./newFolders', { recursive: true }, err => {
+//     if (err) throw err;
 
-    console.log('Папка создана');
+//     console.log('Папка создана');
 
-    files.forEach(file => {
-      fs.copyFile(`./files/${file}`, `./newFolders/${file}`, err => {
-        if (err) throw err;
-        console.log(file, 'файл скопирован');
-      });
-    });
+//     files.forEach(file => {
+//       fs.copyFile(`./files/${file}`, `./newFolders/${file}`, err => {
+//         if (err) throw err;
+//         console.log(file, 'файл скопирован');
+//       });
+//     });
+//   });
+// });
+
+// промисифицированные методы
+fs.readFile('./files/text.txt', 'utf8')
+  .then(rezult => {
+    console.log('rezult: ', rezult);
+  })
+  .catch(err => {
+    console.error(err.message);
   });
-});
+
 
 
 console.log('App start');
