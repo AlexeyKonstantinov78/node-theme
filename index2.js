@@ -5,9 +5,19 @@ const checkFileStats = async path => {
     const stats = await fs.stat(path);
 
     console.log(stats);
+
+    // проверка на тип файл или каатлог
+    if (stats.isFile()) {
+      console.log('Файл');
+    } else if (stats.isDirectory()) {
+      console.log('Директория');
+    } else {
+      console.log('Это неизвестный тип');
+    }
+
   } catch (error) {
     console.error(error.message);
   }
 };
 
-checkFileStats('./files');
+checkFileStats('./files/text.txt');
