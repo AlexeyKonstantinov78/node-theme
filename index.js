@@ -1,4 +1,4 @@
-import { readdir, mkdir, copyFile, unlink, rm } from 'node:fs/promises';
+import { readdir, mkdir, copyFile, unlink, rm, access } from 'node:fs/promises';
 import { readText } from './modules/readText.js';
 import { write } from './modules/writeFileCustom.js';
 
@@ -89,11 +89,25 @@ const app2 = async () => {
           //   await unlink(`./newFolders/${file}`);
           //   console.log(`Файл удален ${file}`);
           // }, 3000);
-          setTimeout(async () => {
-            await rm(`./newFolders/${file}`);
-            console.log(`Файл удален ${file}`);
-          }, 3000);
+
         });
+
+        setTimeout(async () => {
+          await rm(`./newFolders`, { recursive: true });
+          console.log(`Каталог удален `);
+        }, 3000);
+
+        setTimeout(async () => {
+          access('./newFolders')
+            .then(() => {
+              rm('./newFolders', { recursive: true });
+            })
+            .then(() => {
+              console.log(`КАталог удален `);
+            }).catch(() => {
+              console.log('Папки нет');
+            });
+        }, 5000);
       });
   } catch (error) {
     console.error(error.message);
