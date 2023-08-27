@@ -1,4 +1,4 @@
-import fs from 'node:fs/promises';
+import { readdir, mkdir, copyFile } from 'node:fs/promises';
 import { readText } from './modules/readText.js';
 import { write } from './modules/writeFileCustom.js';
 
@@ -70,4 +70,25 @@ const app = async () => {
 };
 
 console.log('App start');
-app();
+// app();
+
+const app2 = async () => {
+  try {
+    readdir('./files')
+      .then(async files => {
+        await mkdir('./newFolders', { recursive: true });
+        console.log('Папка создана');
+        return files;
+      })
+      .then(files => {
+        files.forEach(async file => {
+          await copyFile(`./files/${file}`, `./newFolders/${file}`);
+          console.log(file, 'файл скопирован');
+        });
+      });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+app2();
