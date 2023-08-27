@@ -144,4 +144,4 @@ const watcherStart = async (path) => {
   }
 };
 
-watcherStart('./files/text.txt');
+watcherStart('./files');
