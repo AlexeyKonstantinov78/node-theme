@@ -1,4 +1,4 @@
-import { readdir, mkdir, copyFile, unlink, rm, access } from 'node:fs/promises';
+import { readdir, mkdir, copyFile, unlink, rm, access, watch } from 'node:fs/promises';
 import { readText } from './modules/readText.js';
 import { write } from './modules/writeFileCustom.js';
 
@@ -114,4 +114,14 @@ const app2 = async () => {
   }
 };
 
-app2();
+// app2();
+
+const watcherStart = async (path) => {
+  const watcher = watch(path);
+
+  for await (const event of watcher) {
+    console.log(event);
+  }
+};
+
+watcherStart('./files/text.txt');
