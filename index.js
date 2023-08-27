@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import { readText } from './modules/readText.js';
+import { write } from './modules/writeFileCustom.js';
 
 
 //эти методы являются синхоронными
@@ -57,11 +58,15 @@ import { readText } from './modules/readText.js';
 
 // промисифицированные методы
 
-
-
-
 const app = async () => {
-  console.log(await readText('./files/text.txt'));
+  try {
+    const text = await readText('./files/text.txt');
+    console.log('text: ', text);
+    await write('./newFolders/rezultWriteText.txt', text.toUpperCase());
+    console.log('Запиь в файл записан');
+  } catch (error) {
+    console.error(error.message);
+  }
 };
 
 console.log('App start');
