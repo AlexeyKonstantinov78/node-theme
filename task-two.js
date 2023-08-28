@@ -1,5 +1,14 @@
 import { EventEmitter } from 'node:events';
-import { appendFile, stat, truncate, copyFile } from 'node:fs/promises';
+import {
+  appendFile,
+  stat,
+  truncate,
+  copyFile,
+  writeFile,
+  readFile,
+  access,
+  constants
+} from 'node:fs/promises';
 class Logger extends EventEmitter {
   constructor(filename, maxSize) {
     super();
@@ -17,13 +26,16 @@ class Logger extends EventEmitter {
     }
   }
 
-  writeLog() {
-    this.logQueue.forEach(async log => {
-      await appendFile(this.filename, `${log}\n`);
+  async writeLog() {
+    try {
+      const fileLog = `${await readFile(this.filename)}\n`;
+      await writeFile(this.filename, `${this.logQueue.shift()}\n${fileLog}`);
+    } catch (error) {
+      await writeFile(this.filename, `${this.logQueue.shift()}\n`);
+    }
 
-    });
     this.emit('messageLogged', this.logQueue);
-    this.logQueue = [];
+    //this.logQueue = [];
     if (this.logQueue.length > 0) {
       this.writeLog();
       this.writing = true;
@@ -64,6 +76,6 @@ logger.on('messageLogged', message => {
   console.log('Записано сообщение:', message);
 });
 
-logger.log('Первое сообщение1');
+logger.log('Первое сообщение3');
 
-logger.log('Второе сообщение2');
+logger.log('Второе сообщение4');
