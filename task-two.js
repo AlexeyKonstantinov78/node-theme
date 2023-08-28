@@ -11,8 +11,10 @@ class Logger extends EventEmitter {
 
   log(message) {
     this.logQueue.unshift(message);
-    this.writeLog();
-    if (!this.writing) this.writing = true;
+    if (!this.writing) {
+      this.writeLog();
+      this.writing = true;
+    }
   }
 
   writeLog() {
@@ -22,10 +24,12 @@ class Logger extends EventEmitter {
     });
     this.emit('messageLogged', this.logQueue);
     this.logQueue = [];
-    if (this.logQueue.length > 0)
+    if (this.logQueue.length > 0) {
       this.writeLog();
-    else
+      this.writing = true;
+    } else {
       this.writing = false;
+    }
 
     this.checkFileSize();
   }
