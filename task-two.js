@@ -1,13 +1,10 @@
 import { EventEmitter } from 'node:events';
 import {
-  appendFile,
   stat,
   truncate,
   copyFile,
   writeFile,
   readFile,
-  access,
-  constants
 } from 'node:fs/promises';
 class Logger extends EventEmitter {
   constructor(filename, maxSize) {
@@ -27,28 +24,27 @@ class Logger extends EventEmitter {
   }
 
   async writeLog() {
+    this.emit('messageLogged', this.logQueue[this.logQueue.length - 1]);
     try {
       const fileLog = `${await readFile(this.filename)}\n`;
-      await writeFile(this.filename, `${this.logQueue.shift()}\n${fileLog}`);
+      await writeFile(this.filename, `${this.logQueue.pop()}\n${fileLog}`);
     } catch (error) {
-      await writeFile(this.filename, `${this.logQueue.shift()}\n`);
+      await writeFile(this.filename, `${this.logQueue.pop()}\n`);
     }
 
-    this.emit('messageLogged', this.logQueue);
-    //this.logQueue = [];
+    await this.checkFileSize();
+
     if (this.logQueue.length > 0) {
-      this.writeLog();
+      await this.writeLog();
       this.writing = true;
     } else {
       this.writing = false;
     }
-
-    this.checkFileSize();
   }
 
   async checkFileSize() {
     if ((await this.getFileSize()) > this.maxSize) {
-      this.rotateLog();
+      await this.rotateLog();
     }
   }
 
@@ -76,6 +72,14 @@ logger.on('messageLogged', message => {
   console.log('Записано сообщение:', message);
 });
 
-logger.log('Первое сообщение3');
+// logger.log('Первое сообщение1');
 
-logger.log('Второе сообщение4');
+// logger.log('Второе сообщение2');
+
+// logger.log('Первое сообщение3');
+
+// logger.log('Второе сообщение4');
+
+for (let index = 0; index <= 1200; index++) {
+  logger.log(`Второе сообщение ${index}`);
+}
