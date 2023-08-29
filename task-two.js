@@ -24,12 +24,19 @@ class Logger extends EventEmitter {
   }
 
   async writeLog() {
-    this.emit('messageLogged', this.logQueue[this.logQueue.length - 1]);
+    const sizePackage = this.logQueue.length;
+    const logPackage = this.logQueue.join('\n');
+
+    this.logQueue = [];
+    this.emit(
+      'messageLogged',
+      `${new Date(Date.now()).toISOString()}: Записан пакет: ${sizePackage}`);
+
     try {
       const fileLog = `${await readFile(this.filename)}\n`;
-      await writeFile(this.filename, `${this.logQueue.pop()}\n${fileLog}`);
+      await writeFile(this.filename, `${logPackage}\n${fileLog}`);
     } catch (error) {
-      await writeFile(this.filename, `${this.logQueue.pop()}\n`);
+      await writeFile(this.filename, `${logPackage}\n`);
     }
 
     await this.checkFileSize();
