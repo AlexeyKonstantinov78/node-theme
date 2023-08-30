@@ -8,4 +8,3 @@ export const write = async (pathFile, data) => {
     console.error(err.message);
   }
 };
-

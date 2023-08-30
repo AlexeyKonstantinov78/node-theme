@@ -3,14 +3,13 @@ import { write } from './modules/writeFileCustom.js';
 
 const app = async () => {
   try {
-    const data = await read('./files/text.txt');
-    console.log('data: ', data.toString('utf-8')); // toString('utf8') лучше указывать кодировку
-    await write('./files/rezultWriteText.txt', data.toString('utf-8').toUpperCase());
+    const data = await read('./files/gimn.mp3');
+    console.log('data: ', data); // toString('utf8') лучше указывать кодировку
+    await write('./files/rezul.mp3', data);
     console.log('Запиь в файл записан');
   } catch (error) {
     console.error(error.message);
   }
 };
-
 
 app();
