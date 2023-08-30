@@ -15,8 +15,7 @@ const app = async () => {
     const bufferSafe = Buffer.alloc(1024, 'изучаем node');
     console.log('bufferSafe: ', bufferSafe);
 
-
-    //await write('./files/rezul.txt', data);
+    await write('./files/rezulBuff.txt', bufferSafe);
     console.log('Запиь в файл записан');
   } catch (error) {
     console.error(error.message);
