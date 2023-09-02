@@ -6,8 +6,7 @@
   "scripts": {
     "start": "node index",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index2",
-    "dev-task-two": "node task-two"
+    "dev": "nodemon task-three"
   },
   "keywords": [
     "package",
