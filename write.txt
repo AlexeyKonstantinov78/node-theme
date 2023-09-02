@@ -1,0 +1,6 @@
+[result.txt]
+[result1.txt]
+[result3.txt]
+привет мир1
+привет мир2
+привет мир3
