@@ -1,6 +1,8 @@
 [result.txt]
+привет мир1!
 [result1.txt]
+привет мир2!
 [result3.txt]
-привет мир1
-привет мир2
-привет мир3
+привет мир3!
+[qqq.txt]
+Stream Ready Steady Go

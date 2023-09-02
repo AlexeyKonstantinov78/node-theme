@@ -17,8 +17,8 @@ const readFileDir = async (sourceDir, targetFile) => {
         const buffFile = Buffer.from(file);
         const stream = createReadStream(`${sourceDir}/${file}`);
         if (buffFile.includes('.txt')) {
-          wStream.write(Buffer.from(`[${file}]\n`));
           for await (const chunk of stream) {
+            wStream.write(Buffer.from(`[${file}]\n`));
             wStream.write(`${chunk}`);
           }
         }
