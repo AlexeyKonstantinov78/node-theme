@@ -6,11 +6,15 @@ const rl = readline.createInterface({
   prompt: '# ', // приглашение
 });
 
+console.log('Привет, твое имя: ');
 // вызываем прриглашение
 rl.prompt();
 // вопросы в консоли и ждет ответа присваевая результат в переменную
-const answer = await rl.question('Привет, твое имя: ');
+//const answer = await rl.question('Привет, твое имя: ');
 
-console.log(`Hello, ${answer}`);
+rl.on('line', answer => {
+  console.log(`Hello, ${answer}`);
+  rl.prompt();
+});
 
-rl.close(); // завершает readline
+//rl.close(); // завершает readline
