@@ -3,9 +3,15 @@ import { write } from '../util/writeFile.js';
 
 export const updateTask = task => {
   const data = read();
-  const arr = task.split(' ');
-  const idTask = arr[0];
-  const statusTask = arr[1];
+  const idTask = task[0];
+  try {
+    task.shift();
+  } catch (error) {
+    console.log('Что-то забыли передать');
+    return;
+  }
+
+  const statusTask = task.join(' ');
   const array = [];
 
   for (const item of data) {

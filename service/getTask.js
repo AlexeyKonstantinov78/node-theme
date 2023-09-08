@@ -1,10 +1,9 @@
 import { read } from '../util/readFile.js';
 
 export const getTask = id => {
-  const arr = id.split(' ');
-  const getTask = arr[0];
+  const getTask = id[0];
+  let taskId = true;
   const data = read();
-
   if (getTask > data.length) {
     console.log('Нет такой задачи');
     return;
@@ -18,7 +17,11 @@ export const getTask = id => {
         console.log('Задача с идентификатором ' + idTask + ':');
         console.log('Название: ' + task.substring(task.indexOf('] ') + 2));
         console.log('Статуc: ' + task.substring(task.indexOf(' [') + 2, task.indexOf(']')));
+        taskId = false;
       }
     }
   }
+
+  if (taskId)
+    console.log('Нет такой задачи');
 };

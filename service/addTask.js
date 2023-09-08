@@ -1,4 +1,3 @@
-import { count } from 'console';
 import { read } from '../util/readFile.js';
 import { write } from '../util/writeFile.js';
 
@@ -10,7 +9,7 @@ export const addTask = task => {
   }
 
   const id = parseInt(count) + 1;
-  data.push(`${id}. [В работе] ${task}`);
+  data.push(`${id}. [В работе] ${task.join(' ')}`);
   write(data);
   console.log('Задача добавлена с идентификатором ' + id);
 };

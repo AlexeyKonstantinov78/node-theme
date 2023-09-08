@@ -5,7 +5,7 @@ export const argsParseToDo = ([, , ...argv]) => {
   argv.shift();
 
   if (argv.length > 0)
-    args[key] = argv.join(' ');
+    args[key] = argv;
   else
     args[key] = true;
 

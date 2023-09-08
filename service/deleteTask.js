@@ -2,8 +2,7 @@ import { read } from '../util/readFile.js';
 import { write } from '../util/writeFile.js';
 
 export const deleteTask = task => {
-  const arr = task.split(' ');
-  const deleteTask = arr[0];
+  const deleteTask = task[0];
   let del = true;
 
   const data = read();
@@ -13,6 +12,11 @@ export const deleteTask = task => {
       del = false;
     }
   });
+
+  if (del && task[0] === undefined) {
+    console.log('Что-то забыли передать');
+    return;
+  }
 
   if (del) {
     console.log('Такой задачи нет ' + deleteTask);
