@@ -28,7 +28,6 @@ const app = async () => {
     process.exit();
   }
 
-
   if (args.h || args.help) {
     console.log(`
       -h --help      | помощь - список команд
