@@ -1,7 +1,10 @@
-import { read } from '../util/readFile.js';
+import { read } from '../util/readWriteFile.js';
 
 export const listTask = () => {
   const data = read();
 
-  data.forEach(item => console.log(item));
+  if (data !== undefined)
+    data.forEach(item => console.log(item));
+  else
+    console.log('Список пуст');
 };

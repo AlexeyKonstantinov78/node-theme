@@ -1,5 +1,4 @@
-import { read } from '../util/readFile.js';
-import { write } from '../util/writeFile.js';
+import { read, write } from '../util/readWriteFile.js';
 
 export const deleteTask = task => {
   const deleteTask = task[0];

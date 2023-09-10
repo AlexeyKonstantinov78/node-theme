@@ -1,11 +1,15 @@
-import { read } from '../util/readFile.js';
-import { write } from '../util/writeFile.js';
+import { read, write } from '../util/readWriteFile.js';
 
 export const addTask = task => {
-  const data = read();
+  let data = read();
   let count = 0;
-  if (data.length > 0) {
-    count = data[data.length - 1].substring(0, data[data.length - 1].indexOf('.'));
+
+  if (data !== undefined) {
+    if (data.length > 0) {
+      count = data[data.length - 1].substring(0, data[data.length - 1].indexOf('.'));
+    }
+  } else {
+    data = [];
   }
 
   const id = parseInt(count) + 1;
