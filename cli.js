@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 
+import process from 'node:process';
 import { generatePassword } from './service/generatePassword.service.js';
+import { getPasswordOptions } from './service/getPasswordOptions.service.js';
 import { argsParse } from './util/argsParse.js';
 
-const app = () => {
+const app = async () => {
   const args = argsParse(process.argv);
-  const option = {
+  const options = {
     length: 10,
     number: false,
     special: false,
@@ -13,9 +15,11 @@ const app = () => {
   };
 
   if (args.a || args.ask) {
-    generatePassword(option);
-
-    return;
+    console.log('Ответье на вопросы');
+    const options = await getPasswordOptions();
+    const password = generatePassword(options);
+    process.stdout.write(`Пароль: '${password}'\n`);
+    process.exit();
   }
 
   if (args.h || args.help) {
@@ -28,31 +32,32 @@ const app = () => {
       -a -- ask      | провести опрос
     `);
 
-    return;
+    process.exit();
   }
 
   if (args.l || args.length) {
     console.log(`Длина: ${args.l || args.length}`);
-    option.length = args.l || args.length;
+    options.length = args.l || args.length;
   }
 
   if (args.u || args.uppercase) {
     console.log('Строчные буквы');
-    option.uppercase = args.u || args.uppercase;
+    options.uppercase = args.u || args.uppercase;
   }
 
   if (args.n || args.number) {
     console.log('Цифры');
-    option.number = args.n || args.number;
+    options.number = args.n || args.number;
   }
 
   if (args.s || args.special) {
     console.log('Спецс символы');
-    option.special = args.s || args.special;
+    options.special = args.s || args.special;
   }
 
-  console.log(option);
-  generatePassword(option);
+  const password = generatePassword(options);
+  process.stdout.write(`Пароль: '${password}'\n`);
+  process.exit();
 };
 
 app();
