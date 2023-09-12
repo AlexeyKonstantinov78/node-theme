@@ -2,17 +2,7 @@ import https from 'https';
 import http from 'http';
 import url from 'url';
 
-const urlString = 'https://vz.ru/';
-
-const parsedUrl = url.parse(urlString);
-
-const options = {
-  hostname: parsedUrl.hostname,
-  headers: {
-    'Content-type': 'text/html; charset=utf-8',
-  },
-};
-
+const urlString = 'https://js.methed.ru/react/';
 
 const tag = (arrTag, data) => {
   let count = 0;
@@ -34,13 +24,22 @@ const tag = (arrTag, data) => {
 
 const parseHTML = str => {
   const hTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
-  const ahref = ['a '];
+  const ahref = ['a'];
 
   tag(hTags, str);
-  tag(ahref, str);
+  //tag(ahref, str);
 };
 
-const fetchData = () => {
+const fetchData = urlStr => {
+
+  const parsedUrl = url.parse(urlStr);
+
+  const options = {
+    hostname: parsedUrl.hostname,
+    headers: {
+      'Content-type': 'text/html; charset=utf-8',
+    },
+  };
   const httpModule = parsedUrl.protocol === 'https:' ? https : http;
   const req = httpModule.request(options, res => {
     let data = '';
@@ -61,5 +60,4 @@ const fetchData = () => {
   req.end();
 };
 
-
-fetchData();
+fetchData(urlString);
