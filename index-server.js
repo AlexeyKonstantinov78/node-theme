@@ -9,11 +9,13 @@ const server = http.createServer((req, res) => {
   if (req.url === '/text') {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-    res.end('Привет node text');
-  } else if (req.url === '/html') {
+    return res.end('Привет node text');
+  }
+
+  if (req.url === '/html') {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.end(`
+    return res.end(`
       <html>
         <head>
           <title>Привет HTML</title>
@@ -23,12 +25,18 @@ const server = http.createServer((req, res) => {
         </body>
       </html>
     `);
-  } else {
+  }
+
+  if (req.url === '/') {
     // отправка ответа
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-    res.end('Hello world');
+    return res.end('Hello world');
   }
+
+  res.statusCode = 404;
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.end('<h1>Страница не найдена</h1>');
 });
 
 // запуск сревера прослушивание
