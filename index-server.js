@@ -1,18 +1,25 @@
-import http from 'node:http';
+import { createServer } from 'node:http';
+import { readFile, writeFile } from 'node:fs';
+import { parse } from 'node:url';
 
 const port = 3000;
 const host = 'localhost';
 
-const server = http.createServer((req, res) => {
+const server = createServer((req, res) => {
+  const { method, url } = req;
+  const parseUrl = parse(url, true);
+  console.log('parseUrl: ', parseUrl);
+
   //получение запроса
   //console.log({ req });
-  if (req.url === '/text') {
+  // более надежный способ получения url
+  if (method === 'GET' && parseUrl.pathname === '/text') {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain; charset=utf-8');
     return res.end('Привет node text');
   }
 
-  if (req.url === '/html') {
+  if (method === 'GET' && parseUrl.pathname === '/html') {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     return res.end(`
@@ -27,7 +34,7 @@ const server = http.createServer((req, res) => {
     `);
   }
 
-  if (req.url === '/') {
+  if (method === 'GET' && parseUrl.pathname === '/') {
     // отправка ответа
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain; charset=utf-8');
@@ -35,8 +42,8 @@ const server = http.createServer((req, res) => {
   }
 
   res.statusCode = 404;
-  res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.end('<h1>Страница не найдена</h1>');
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.end('Страница не найдена');
 });
 
 // запуск сревера прослушивание
