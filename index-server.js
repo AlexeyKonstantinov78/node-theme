@@ -21,7 +21,7 @@ const getUsers = async (req, res) => {
 const server = createServer(async (req, res) => {
   const { method, url } = req;
   const parseUrl = parse(url, true);
-  console.log('parseUrl: ', parseUrl);
+  // console.log('parseUrl: ', parseUrl);
 
   //получение запроса
   //console.log({ req });
