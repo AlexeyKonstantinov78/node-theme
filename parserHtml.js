@@ -3,6 +3,7 @@ import http from 'http';
 import url from 'url';
 
 const urlString = 'https://js.methed.ru/react/';
+//const urlString = 'https://vz.ru/';
 
 const tag = (arrTag, data) => {
   let count = 0;
@@ -12,14 +13,15 @@ const tag = (arrTag, data) => {
 
   //const regx = /<\/?[a-z][a-z0-9]*>/gi;
   const regx = /<\/?[h][1-9]*>/gi;
-  const regxh = /<[h][1-9][\d+\s+\w+\W+]*>[\d+\w+\s+\W+]*<\/[h][1-9]>/gi;
+  const regxh = /<[h][0-9][\d+\s+\w+%&',;=?$\x22_-]*>[\d+\w+\s+%&',;=?$\x22_-—]*<\/[h][0-9]>/gi;
+  const regxh2 = /<[h][0-9][\d+\s+\w+%&',;=?$\x22_-]*>[<+?\d+\w+\s+%&',;=?$\x22_-—>+?/+]*<\/[h][0-9]>/gi;
 
   //<h3 id="max-leskin" class="you-reach-success__content-subtitle">Преподаватель — Максим Лескин</h3
 
-  //console.log(strData.match(regxh));
+  console.log(strData.match(regxh2));
 
   //'<h3 id="max-leskin" class="you-reach-success__content-subtitle">Преподаватель — Максим Лескин</h3>'.match(regxh);
-  console.log('<h3 id="max-leskin" class="you-reach-success__content-subtitle">Преподаватель — Максим Лескин</h3>'.match(regxh));
+  //console.log('<h3 id="max-leskin" class="you-reach-success__content-subtitle">Преподаватель — Максим Лескин</h3>'.match(regxh));
   //console.log('<h1>Привет! мир</h1>'.match(/<[h][0-9]>[а-яА-Я!\w+\s]*<\/[h][0-9]*>/gi));
   // let h1 = body.matchAll(regx);
   // let arr = Array.from(h1);
