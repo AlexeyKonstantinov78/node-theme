@@ -8,18 +8,35 @@ const tag = (arrTag, data) => {
   let count = 0;
   let strData = data;
 
-  for (let index = 0; index < arrTag.length; index++) {
-    do {
-      if (strData.indexOf(`<${arrTag[index]}`) === -1) {
-        continue;
-      }
-      count += 1;
-      const str = strData.substring(strData.indexOf(`<${arrTag[index]}`), strData.indexOf(`</${arrTag[index].trim()}`) + 5);
-      console.log(count + ': ' + str);
+  //const body = strData.substring(strData.indexOf(`<body`), strData.indexOf(`</body>`) + 7);
 
-      strData = strData.replace(str, '');
-    } while (strData.indexOf(`<${arrTag[index]}`) !== -1);
-  }
+  //const regx = /<\/?[a-z][a-z0-9]*>/gi;
+  const regx = /<\/?[h][1-9]*>/gi;
+  const regxh = /<[h][1-9][\d+\s+\w+\W+]*>[\d+\w+\s+\W+]*<\/[h][1-9]>/gi;
+
+  //<h3 id="max-leskin" class="you-reach-success__content-subtitle">Преподаватель — Максим Лескин</h3
+
+  //console.log(strData.match(regxh));
+
+  //'<h3 id="max-leskin" class="you-reach-success__content-subtitle">Преподаватель — Максим Лескин</h3>'.match(regxh);
+  console.log('<h3 id="max-leskin" class="you-reach-success__content-subtitle">Преподаватель — Максим Лескин</h3>'.match(regxh));
+  //console.log('<h1>Привет! мир</h1>'.match(/<[h][0-9]>[а-яА-Я!\w+\s]*<\/[h][0-9]*>/gi));
+  // let h1 = body.matchAll(regx);
+  // let arr = Array.from(h1);
+  // console.log(arr[1]);
+
+  // for (let index = 0; index < arrTag.length; index++) {
+  //   do {
+  //     if (strData.indexOf(`<${arrTag[index]}`) === -1) {
+  //       continue;
+  //     }
+  //     count += 1;
+  //     const str = strData.substring(strData.indexOf(`<${arrTag[index]}`), strData.indexOf(`</${arrTag[index].trim()}`) + 5);
+  //     console.log(count + ': ' + str);
+
+  //     strData = strData.replace(str, '');
+  //   } while (strData.indexOf(`<${arrTag[index]}`) !== -1);
+  // }
 };
 
 const parseHTML = str => {
