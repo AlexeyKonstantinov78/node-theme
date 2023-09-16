@@ -4,7 +4,7 @@
   "description": "myfirst project",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
+    "start": "nodemon parserHtml",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev-task-two": "node task-two"
   },

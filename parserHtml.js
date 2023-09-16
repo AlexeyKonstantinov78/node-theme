@@ -3,50 +3,62 @@ import http from 'http';
 import url from 'url';
 
 const urlString = 'https://js.methed.ru/react/';
-//const urlString = 'https://vz.ru/';
 
-const tag = (arrTag, data) => {
+const print = arr => {
   let count = 0;
-  let strData = data;
 
-  //const body = strData.substring(strData.indexOf(`<body`), strData.indexOf(`</body>`) + 7);
+  arr.forEach(item => {
+    let str = item.match(/>[\d+\w+\W+\s+]*</ig);
+
+    if (str[0].length > 2) {
+      count += 1;
+      console.log(count + ' ' + str[0].substring(1, str[0].length - 1));
+    }
+  });
+};
+
+const parseHTML = data => {
+  const arrTagH = [];
+  const arrTagA = [];
 
   //const regx = /<\/?[a-z][a-z0-9]*>/gi;
   const regx = /<\/?[h][1-9]*>/gi;
   const regxh = /<[h][0-9][\d+\s+\w+%&',;=?$\x22_-]*>[\d+\w+\s+%&',;=?$\x22_-—]*<\/[h][0-9]>/gi;
-  const regxh2 = /<[h][0-9][\d+\s+\w+%&',;=?$\x22_-]*>[<+?\d+\w+\s+%&',;=?$\x22_-—>+?/+]*<\/[h][0-9]>/gi;
+  const regxh2 = /<[h][2][\d+\s+\w+%&',;=?$\x22_-]*>[<>\d+\w+\s+%&',;=?$\x22_-—/+\n+\r+ +]*<\/[h][2]>/gi;
+  const regxh1 = /<[h][1][\d+\s+\w+%&',;=?$\x22_-]*>[\w+\W+\s+\S+]*<\/[h][1]>/gi;
+  const regxh3 = /<[h][3][\d+\s+\w+%&',;=?$\x22_-]*>[<>\d+\w+\s+%&',;=?$\x22_-—/+\n+\r+ +]*<\/[h][3]>/gi;
+  const regxh4 = /<[h][4][\d+\s+\w+%&',;=?$\x22_-]*>[<>\d+\w+\s+%&',;=?$\x22_-—/+\n+\r+ +]*<\/[h][4]>/gi;
+  const regxh5 = /<[h][5][\d+\s+\w+%&',;=?$\x22_-]*>[<>\d+\w+\s+%&',;=?$\x22_-—/+\n+\r+ +]*<\/[h][5]>/gi;
+  const regxh6 = /<[h][6][\d+\s+\w+%&',;=?$\x22_-]*>[<>\d+\w+\s+%&',;=?$\x22_-—/+\n+\r+ +]*<\/[h][6]>/gi;
+  const regxhA = /<[a][\d+\s+\w+%&'",;=?$\x22_-].*>[<>\d+\w+\s+%&',;=?$\x22_-—/+\n+\r+ +]*<\/[a]>/gi;
 
-  //<h3 id="max-leskin" class="you-reach-success__content-subtitle">Преподаватель — Максим Лескин</h3
+  if (data.match(regxh1) !== null) {
+    data.match(regxh1).forEach(item => arrTagH.push(item));
+  }
 
-  console.log(strData.match(regxh2));
+  if (data.match(regxh2) !== null) {
+    data.match(regxh2).forEach(item => arrTagH.push(item));
+  }
 
-  //'<h3 id="max-leskin" class="you-reach-success__content-subtitle">Преподаватель — Максим Лескин</h3>'.match(regxh);
-  //console.log('<h3 id="max-leskin" class="you-reach-success__content-subtitle">Преподаватель — Максим Лескин</h3>'.match(regxh));
-  //console.log('<h1>Привет! мир</h1>'.match(/<[h][0-9]>[а-яА-Я!\w+\s]*<\/[h][0-9]*>/gi));
-  // let h1 = body.matchAll(regx);
-  // let arr = Array.from(h1);
-  // console.log(arr[1]);
+  if (data.match(regxh3) !== null) {
+    data.match(regxh3).forEach(item => arrTagH.push(item));
+  }
+  if (data.match(regxh4) !== null) {
+    data.match(regxh4).forEach(item => arrTagH.push(item));
+  }
+  if (data.match(regxh5) !== null) {
+    data.match(regxh5).forEach(item => arrTagH.push(item));
+  }
+  if (data.match(regxh5) !== null) {
+    data.match(regxh6).forEach(item => arrTagH.push(item));
+  }
 
-  // for (let index = 0; index < arrTag.length; index++) {
-  //   do {
-  //     if (strData.indexOf(`<${arrTag[index]}`) === -1) {
-  //       continue;
-  //     }
-  //     count += 1;
-  //     const str = strData.substring(strData.indexOf(`<${arrTag[index]}`), strData.indexOf(`</${arrTag[index].trim()}`) + 5);
-  //     console.log(count + ': ' + str);
+  if (data.match(regxhA)) {
+    data.match(regxhA).forEach(item => arrTagA.push(item));
+  }
 
-  //     strData = strData.replace(str, '');
-  //   } while (strData.indexOf(`<${arrTag[index]}`) !== -1);
-  // }
-};
-
-const parseHTML = str => {
-  const hTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
-  const ahref = ['a'];
-
-  tag(hTags, str);
-  //tag(ahref, str);
+  print(arrTagH);
+  print(arrTagA);
 };
 
 const fetchData = urlStr => {
