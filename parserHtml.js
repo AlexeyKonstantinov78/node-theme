@@ -4,11 +4,28 @@ import url from 'url';
 
 const urlString = 'https://js.methed.ru/react/';
 
+const printLink = arr => {
+  let count = 0;
+
+  console.log('Список ссылок');
+
+  arr.forEach(item => {
+    let str = item.match(/>[\d+\w+\W+\s+]*</ig);
+    let strHref = item.match(/href="#?[a-z://._-\d+]+"\s?/ig);
+
+    if (str[0].length > 2) {
+      count += 1;
+      console.log(count + ' ' + str[0].substring(1, str[0].length - 1) + ' (' + strHref + ')');
+    }
+  });
+};
+
 const print = arr => {
   let count = 0;
 
   arr.forEach(item => {
     let str = item.match(/>[\d+\w+\W+\s+]*</ig);
+    let strHref = item.match(/href="#?[a-z://._-\d+]+"\s?/ig);
 
     if (str[0].length > 2) {
       count += 1;
@@ -21,16 +38,16 @@ const parseHTML = data => {
   const arrTagH = [];
   const arrTagA = [];
 
-  //const regx = /<\/?[a-z][a-z0-9]*>/gi;
-  const regx = /<\/?[h][1-9]*>/gi;
-  const regxh = /<[h][0-9][\d+\s+\w+%&',;=?$\x22_-]*>[\d+\w+\s+%&',;=?$\x22_-—]*<\/[h][0-9]>/gi;
+  // //const regx = /<\/?[a-z][a-z0-9]*>/gi;
+  // const regx = /<\/?[h][1-9]*>/gi;
+  // const regxh = /<[h][0-9][\d+\s+\w+%&',;=?$\x22_-]*>[\d+\w+\s+%&',;=?$\x22_-—]*<\/[h][0-9]>/gi;
   const regxh2 = /<[h][2][\d+\s+\w+%&',;=?$\x22_-]*>[<>\d+\w+\s+%&',;=?$\x22_-—/+\n+\r+ +]*<\/[h][2]>/gi;
   const regxh1 = /<[h][1][\d+\s+\w+%&',;=?$\x22_-]*>[\w+\W+\s+\S+]*<\/[h][1]>/gi;
   const regxh3 = /<[h][3][\d+\s+\w+%&',;=?$\x22_-]*>[<>\d+\w+\s+%&',;=?$\x22_-—/+\n+\r+ +]*<\/[h][3]>/gi;
   const regxh4 = /<[h][4][\d+\s+\w+%&',;=?$\x22_-]*>[<>\d+\w+\s+%&',;=?$\x22_-—/+\n+\r+ +]*<\/[h][4]>/gi;
   const regxh5 = /<[h][5][\d+\s+\w+%&',;=?$\x22_-]*>[<>\d+\w+\s+%&',;=?$\x22_-—/+\n+\r+ +]*<\/[h][5]>/gi;
   const regxh6 = /<[h][6][\d+\s+\w+%&',;=?$\x22_-]*>[<>\d+\w+\s+%&',;=?$\x22_-—/+\n+\r+ +]*<\/[h][6]>/gi;
-  const regxhA = /<[a][\d+\s+\w+%&'",;=?$\x22_-].*>[<>\d+\w+\s+%&',;=?$\x22_-—/+\n+\r+ +]*<\/[a]>/gi;
+  const regxhA = /<a[\W+\D+].+>[а-яё-\w+\s+]+<\/a>/gi;
 
   if (data.match(regxh1) !== null) {
     data.match(regxh1).forEach(item => arrTagH.push(item));
@@ -57,8 +74,10 @@ const parseHTML = data => {
     data.match(regxhA).forEach(item => arrTagA.push(item));
   }
 
-  print(arrTagH);
-  print(arrTagA);
+  //console.log(data.match(regxhA));
+
+  // print(arrTagH);
+  printLink(arrTagA);
 };
 
 const fetchData = urlStr => {
