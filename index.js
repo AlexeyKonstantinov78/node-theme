@@ -22,6 +22,22 @@ const server = https.createServer(option, (req, res) => {
   //перенаправление н адругой адресс
   // res.statusCode = 302;
   // res.setHeader('Location', 'https://google.ru');
+
+  res.setHeader('Access-Control-Allow-Origin', 'my-sity.com'); // разрешение сделать запросы с определенного сайта
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE'); // разрешение на методы
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // разрешение на получение заголовков
+
+  // работа с куками
+  res.setHeader(
+    'Set-Cookie',
+    ['sesionId=123456; Max-Age=3600; Secure; SameSite=None', 'userId=12345'],
+  );
+
+  // * - запрашивает все кого угодно что угодно
+
+  const cookes = req.headers.cookie; // чтение куки
+  console.log(cookes);
+
   res.end('hello! this http server');
 });
 
