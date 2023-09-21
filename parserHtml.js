@@ -42,7 +42,7 @@ const parseHTML = data => {
 
   // //const regx = /<\/?[a-z][a-z0-9]*>/gi;
   // const regx = /<\/?[h][1-9]*>/gi;
-  // const regxh = /<[h][0-9][\d+\s+\w+%&',;=?$\x22_-]*>[\d+\w+\s+%&',;=?$\x22_-—]*<\/[h][0-9]>/gi;
+  const regxh = /<[h][0-9][\d+\s+\w+%&',;=?$\x22_-]*>[\d+\w+\s+%&',;=?$\x22_-—]*<\/[h][0-9]>/gi;
   const regxh2 = /<[h][2][\d+\s+\w+%&',;=?$\x22_-]*>[<>\d+\w+\s+%&',;=?$\x22_-—/+\n+\r+ +]*<\/[h][2]>/gi;
   const regxh1 = /<[h][1][\d+\s+\w+%&',;=?$\x22_-]*>[\w+\W+\s+\S+]*<\/[h][1]>/gi;
   const regxh3 = /<[h][3][\d+\s+\w+%&',;=?$\x22_-]*>[<>\d+\w+\s+%&',;=?$\x22_-—/+\n+\r+ +]*<\/[h][3]>/gi;
@@ -76,10 +76,10 @@ const parseHTML = data => {
     data.match(regxhA).forEach(item => arrTagA.push(item));
   }
 
-  //console.log(data.match(regxhA));
+  console.log(data.match(/<h[0-9]+\s+[a-z0-9="-_\s]+>[a-zA-Zа-яА-ЯёЁ-\s—]+/ig));
 
   // print(arrTagH);
-  printLink(arrTagA);
+  // printLink(arrTagA);
 };
 
 const fetchData = urlStr => {
@@ -90,6 +90,7 @@ const fetchData = urlStr => {
     hostname: parsedUrl.hostname,
     headers: {
       'Content-type': 'text/html; charset=utf-8',
+      'Cache-Control': 'no-cache',
     },
   };
   const httpModule = parsedUrl.protocol === 'https:' ? https : http;
