@@ -15,7 +15,9 @@ const printLink = arr => {
 
     if (str[0].length > 2) {
       count += 1;
-      console.log(count + ' ' + str[0].substring(1, str[0].length - 1) + ' (' + strHref + ')');
+      console.log(count + ' ' +
+        str[0].substring(1, str[0].length - 1) +
+        ' (' + strHref[0].match(/#?[a-z://._-\d+]+/ig)[1] + ')');
     }
   });
 };
