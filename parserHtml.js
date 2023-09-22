@@ -76,10 +76,10 @@ const parseHTML = data => {
     data.match(regxhA).forEach(item => arrTagA.push(item));
   }
 
-  console.log(data.match(/<h[0-9]+\s+[a-z0-9="-_\s]+>[a-zA-Zа-яА-ЯёЁ-\s—]+/ig));
+  //console.log(data.match(/<h[0-9]+\s+[a-z0-9="-_\s]+>[a-zA-Zа-яА-ЯёЁ-\s—]+/ig));
 
-  // print(arrTagH);
-  // printLink(arrTagA);
+  print(arrTagH);
+  printLink(arrTagA);
 };
 
 const fetchData = urlStr => {
