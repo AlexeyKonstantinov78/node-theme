@@ -88,9 +88,9 @@ const fetchData = urlStr => {
 
   const options = {
     hostname: parsedUrl.hostname,
+    path: parsedUrl.pathname,
     headers: {
       'Content-type': 'text/html; charset=utf-8',
-      'Cache-Control': 'no-cache',
     },
   };
   const httpModule = parsedUrl.protocol === 'https:' ? https : http;
