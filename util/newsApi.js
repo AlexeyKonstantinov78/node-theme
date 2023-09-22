@@ -1,6 +1,5 @@
 import 'dotenv/config';
 import https from 'node:https';
-//import url from 'url';
 
 const API_KEY = process.env.API_KEY;
 
@@ -15,12 +14,9 @@ const options = {
 };
 
 export const newsApi = option => {
-  console.log(option);
   options.method = 'GET';
 
   options.path = `/v2/top-headlines?country=${option.lang}&category=${option.category}&q=${encodeURIComponent(option.query)}&pageSize=${option.pages}`;
-  // const strUrl = `https://${options.hostname}${options.path}?${options.query}`;
-  // console.log(url.parse(strUrl));
 
   const req = https.request(options, res => {
     let data = '';
@@ -30,7 +26,6 @@ export const newsApi = option => {
     });
 
     res.on('end', () => {
-      console.log('Response data for GET request');
       console.log(JSON.parse(data));
     });
 
@@ -38,6 +33,5 @@ export const newsApi = option => {
       console.log(err);
     });
   });
-  console.log(req);
   req.end();
 };

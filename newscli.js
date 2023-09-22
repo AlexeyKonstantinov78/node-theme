@@ -5,8 +5,6 @@ import { newsApi } from './util/newsApi.js';
 
 const app = () => {
   const args = argsParse(process.argv);
-  console.log('args: ', args);
-
 
   const option = {
     lang: 'ru',
