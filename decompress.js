@@ -1,5 +1,5 @@
 import { createWriteStream, createReadStream } from 'node:fs';
-import { createGunzip, createGzip } from 'node:zlib';
+import { createGunzip } from 'node:zlib';
 
 const outputFilePath = 'lorem-decomp.txt';
 const inputFilePath = 'lorem.gz';
