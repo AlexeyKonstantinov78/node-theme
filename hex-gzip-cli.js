@@ -7,6 +7,20 @@ const app = () => {
   const args = argsParse(process.argv);
   console.log('args: ', args);
 
+  if (args.hexgzip) {
+    if (args.hexgzip === true) {
+      console.log('Укажите имя файла');
+      process.exit();
+    }
+  }
+
+  if (args.gziphex) {
+    if (args.gziphex === true) {
+      console.log('Укажите имя файла');
+      process.exit();
+    }
+  }
+
   console.log(`
     -hexgzip <имя файла>  | хешировани и сжатие файла обязательно указать имя файла
     -gziphex <имя файла>  | распаковка файла и проверка целосности файла
