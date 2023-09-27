@@ -2,6 +2,7 @@
 
 import process from 'node:process';
 import { argsParse } from './util/argsParse.js';
+import { hexfile } from './services/hex.services.js';
 
 const app = () => {
   const args = argsParse(process.argv);
@@ -12,6 +13,8 @@ const app = () => {
       console.log('Укажите имя файла');
       process.exit();
     }
+    console.log();
+    hexfile(args.hexgzip);
   }
 
   if (args.gziphex) {
@@ -19,6 +22,8 @@ const app = () => {
       console.log('Укажите имя файла');
       process.exit();
     }
+
+
   }
 
   console.log(`
@@ -26,7 +31,7 @@ const app = () => {
     -gziphex <имя файла>  | распаковка файла и проверка целосности файла
   `);
 
-  process.exit();
+  //process.exit();
 };
 
 app();
