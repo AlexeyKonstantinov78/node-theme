@@ -16,7 +16,7 @@ export const hexfile = async file => {
   const hashFile = crypto.createHash('sha256').update(dataFile).digest('hex');
   await writeFile(writeNameFile, hashFile);
 
-  const outputFilePath = path.join(__dirname, namefile.split('.')[0] + '.gz');
+  const outputFilePath = path.join(__dirname, namefile + '.gz');
 
   const input = createReadStream(file);
   const output = createWriteStream(outputFilePath);
