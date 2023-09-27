@@ -22,8 +22,6 @@ const app = () => {
       console.log('Укажите имя файла');
       process.exit();
     }
-
-
   }
 
   console.log(`
@@ -31,7 +29,7 @@ const app = () => {
     -gziphex <имя файла>  | распаковка файла и проверка целосности файла
   `);
 
-  //process.exit();
+  process.exit();
 };
 
 app();

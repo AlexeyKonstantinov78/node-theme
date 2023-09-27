@@ -1,8 +1,8 @@
-import crypto from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { createWriteStream, createReadStream } from 'node:fs';
 import { createGzip } from 'node:zlib';
+import { hashFile } from '../util/hashFile.js';
 
 export const hexfile = async file => {
 
@@ -13,8 +13,8 @@ export const hexfile = async file => {
 
   const dataFile = await readFile(file);
 
-  const hashFile = crypto.createHash('sha256').update(dataFile).digest('hex');
-  await writeFile(writeNameFile, hashFile);
+  const hash = hashFile(dataFile);
+  await writeFile(writeNameFile, hash);
 
   const outputFilePath = path.join(__dirname, namefile + '.gz');
 
