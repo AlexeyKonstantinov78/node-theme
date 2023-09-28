@@ -9,8 +9,11 @@ export const gziphex = async file => {
   const namefile = path.basename(file);
 
   const inputFilePath = path.join(__dirname, namefile);
+  console.log('inputFilePath: ', inputFilePath);
 
   const outputFilePath = path.join(__dirname, namefile.split('.')[0] + '.' + namefile.split('.')[1]);
+
+  console.log('outputFilePath: ', outputFilePath);
 
   try {
     await access(inputFilePath);
@@ -25,6 +28,6 @@ export const gziphex = async file => {
     return false;
   }
 
-  const hash = hashFile(outputFilePath);
+  const hash = await hashFile(outputFilePath);
   console.log('hash: ', hash);
 };

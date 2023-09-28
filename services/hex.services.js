@@ -1,4 +1,4 @@
-import { readFile, writeFile, access } from 'node:fs/promises';
+import { writeFile, access } from 'node:fs/promises';
 import path from 'node:path';
 import { createWriteStream, createReadStream } from 'node:fs';
 import { createGzip } from 'node:zlib';
@@ -18,9 +18,8 @@ export const hexfile = async file => {
     return false;
   }
 
-  const dataFile = await readFile(file);
+  const hash = await hashFile(file);
 
-  const hash = hashFile(dataFile);
   await writeFile(writeNameFile, hash);
 
   const outputFilePath = path.join(__dirname, namefile + '.gz');
