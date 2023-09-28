@@ -3,6 +3,7 @@
 import process from 'node:process';
 import { argsParse } from './util/argsParse.js';
 import { hexfile } from './services/hex.services.js';
+import { gziphex } from './services/gziphex.services.js';
 
 const app = () => {
   const args = argsParse(process.argv);
@@ -13,7 +14,7 @@ const app = () => {
       console.log('Укажите имя файла');
       process.exit();
     }
-    console.log();
+
     hexfile(args.hexgzip);
   }
 
@@ -22,14 +23,14 @@ const app = () => {
       console.log('Укажите имя файла');
       process.exit();
     }
+
+    gziphex(args.gziphex);
   }
 
   console.log(`
     -hexgzip <имя файла>  | хешировани и сжатие файла обязательно указать имя файла
     -gziphex <имя файла>  | распаковка файла и проверка целосности файла
   `);
-
-  process.exit();
 };
 
 app();
