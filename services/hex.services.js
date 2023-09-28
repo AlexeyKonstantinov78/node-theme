@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile, access } from 'node:fs/promises';
 import path from 'node:path';
 import { createWriteStream, createReadStream } from 'node:fs';
 import { createGzip } from 'node:zlib';
@@ -10,6 +10,13 @@ export const hexfile = async file => {
   const namefile = path.basename(file);
 
   const writeNameFile = path.join(__dirname, namefile.replace('.', '_') + '.sha256');
+
+  try {
+    await access(file);
+  } catch (error) {
+    console.log('Нет файла для упаковки');
+    return false;
+  }
 
   const dataFile = await readFile(file);
 
