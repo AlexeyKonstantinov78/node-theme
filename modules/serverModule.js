@@ -4,8 +4,9 @@ import url from 'node:url';
 
 const NOT_FOUND_MESSAGE = 'Нет такой ссылки';
 const SERVER_ERROR_MESSAGE = 'Ошибка сервера';
-const SUCCES_MESSAGE = 'Валюта успешно добавлена';
-const INVALID_REQUEST_MESSAGE = 'нечего добавлять';
+const SUCCESS_ADD_MESSAGE = 'Валюта успешно добавлена';
+const SUCCESS_DELETE_MESSAGE = 'Валюта успешно удалена';
+const INVALID_REQUEST_MESSAGE = 'нечего добавлять/удалять';
 const QUOTES_FILE = process.env.QUOTES_FILE;
 const TICKERS_FILE = process.env.TICKERS_FILE;
 
@@ -70,7 +71,8 @@ const handleAddTickers = (req, res, tickers, validTickers) => {
     if (typeof data === 'string') {
       userTickers.push(data);
     }
-    if(Array.isArray(data)) {
+
+    if (Array.isArray(data)) {
       userTickers.push(...data);
     }
 
@@ -84,7 +86,7 @@ const handleAddTickers = (req, res, tickers, validTickers) => {
       try {
         await writeFile(TICKERS_FILE, JSON.stringify(tickers));
         res.writeHead(201, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ message: SUCCES_MESSAGE }));
+        res.end(JSON.stringify({ message: SUCCESS_ADD_MESSAGE }));
       } catch (error) {
         console.error(`Ошибка записи в файл: ${error.message}`);
         res.writeHead(500, { 'Content-Type': 'application/json' });
@@ -94,8 +96,46 @@ const handleAddTickers = (req, res, tickers, validTickers) => {
       res.writeHead(400, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ message: INVALID_REQUEST_MESSAGE }));
     }
-
   });
+};
+
+const handleRemoveTickers = async (res, tickers, query) => {
+  const tickersLength = tickers.length;
+  try {
+    if (!query.tickers) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ message: INVALID_REQUEST_MESSAGE }));
+      return;
+    }
+
+    const removeTicker = query.tickers.toUpperCase().split(',');
+
+    const quotesFileData = await readFile(QUOTES_FILE, 'utf8');
+    const quotesData = JSON.parse(quotesFileData);
+
+    removeTicker.forEach(ticker => {
+      const index = tickers.indexOf(ticker);
+      if (index > -1) {
+        tickers.splice(index, 1);
+        delete quotesData[ticker];
+      }
+    });
+
+    if (tickers.length !== tickersLength) {
+      await writeFile(TICKERS_FILE, JSON.stringify(tickers));
+      await writeFile(QUOTES_FILE, JSON.stringify(quotesData));
+
+      res.writeHead(201, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ message: SUCCESS_DELETE_MESSAGE }));
+    } else {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ message: INVALID_REQUEST_MESSAGE }));
+    }
+  } catch (error) {
+    console.error(error.message);
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ message: SERVER_ERROR_MESSAGE }));
+  }
 };
 
 export const startServer = (tickers, validTickers) => {
@@ -113,6 +153,7 @@ export const startServer = (tickers, validTickers) => {
     }
 
     if (pathname.startsWith('/crypto') && req.method === 'DELETE') {
+      handleRemoveTickers(res, tickers, query);
       return;
     }
 
