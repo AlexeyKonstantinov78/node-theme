@@ -19,9 +19,9 @@ try {
     console.log(`Сервер запущен на порту: ${PORT}`);
   });
 
-  // setInterval(() => {
-  //   fetchAndStoreData(tickers);
-  // }, 5000);
+  setInterval(() => {
+    fetchAndStoreData(tickers);
+  }, 5000);
 } catch (error) {
   console.error('Ошибка при чтении данных: ', error.message);
 }

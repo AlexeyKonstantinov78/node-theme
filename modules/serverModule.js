@@ -1,10 +1,13 @@
-import { NOTFOUND } from 'node:dns';
-import { readFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import http from 'node:http';
 import url from 'node:url';
 
 const NOT_FOUND_MESSAGE = 'Нет такой ссылки';
+const SERVER_ERROR_MESSAGE = 'Ошибка сервера';
+const SUCCES_MESSAGE = 'Валюта успешно добавлена';
+const INVALID_REQUEST_MESSAGE = 'нечего добавлять';
 const QUOTES_FILE = process.env.QUOTES_FILE;
+const TICKERS_FILE = process.env.TICKERS_FILE;
 
 const handleStepQuery = (res, quotesData, queryStep) => {
   const step = parseInt(queryStep);
@@ -45,10 +48,54 @@ const handleCruptoRequest = async (res, query) => {
     }
 
     handleStepQuery(res, quotesData, query.step);
-
   } catch (error) {
-    console.error(error.message);
+    console.error(`Ошибка при чтении файла: ${error.message}`);
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ message: SERVER_ERROR_MESSAGE }));
   }
+};
+
+const handleAddTickers = (req, res, tickers, validTickers) => {
+  const lengthTickers = tickers.length;
+  let body = '';
+
+  req.on('data', chunk => {
+    body += chunk;
+  });
+
+  req.on('end', async () => {
+    const userTickers = [];
+
+    const data = JSON.parse(body.toUpperCase());
+    if (typeof data === 'string') {
+      userTickers.push(data);
+    }
+    if(Array.isArray(data)) {
+      userTickers.push(...data);
+    }
+
+    userTickers.forEach(ticker => {
+      if (validTickers.includes(ticker) && !tickers.includes(ticker)) {
+        tickers.push(ticker);
+      }
+    });
+
+    if (tickers.length !== lengthTickers) {
+      try {
+        await writeFile(TICKERS_FILE, JSON.stringify(tickers));
+        res.writeHead(201, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: SUCCES_MESSAGE }));
+      } catch (error) {
+        console.error(`Ошибка записи в файл: ${error.message}`);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: SERVER_ERROR_MESSAGE }));
+      }
+    } else {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ message: INVALID_REQUEST_MESSAGE }));
+    }
+
+  });
 };
 
 export const startServer = (tickers, validTickers) => {
@@ -61,6 +108,7 @@ export const startServer = (tickers, validTickers) => {
     }
 
     if (pathname.startsWith('/crypto') && req.method === 'POST') {
+      handleAddTickers(req, res, tickers, validTickers);
       return;
     }
 
