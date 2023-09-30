@@ -32,7 +32,21 @@ const client = Knex({
 
 // client.end();
 
+const addUser = async (name, phone, email, age) => {
+  await client('users').insert({ name, phone, email, age });
+  console.log('Пользователь успешно добавлен');
+};
 
+const getAllUsers = async () => {
+  const users = await client('users');
+  return users;
+};
 
-const users = await client('users');
-console.log('users: ', users);
+const init = async ( ) => {
+  await addUser('Vovan', '89002225544', 'vovan@vovan.ru', 55);
+  console.log(await getAllUsers());
+
+  client.destroy(); // закрываем соединение
+};
+
+init();
