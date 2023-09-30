@@ -18,7 +18,8 @@ const client = new pg.Client({
 await client.connect();
 
 try {
-  const res = await client.query('SELECT * FROM users WHERE id = 1');
+  //const res = await client.query('SELECT * FROM users WHERE id = 1');
+  const res = await client.query("SELECT * FROM users WHERE name = 'alex'");
   console.log('res: ', res.rows);
 } catch (error) {
   console.error(error.message);
