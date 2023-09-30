@@ -42,8 +42,16 @@ const getAllUsers = async () => {
   return users;
 };
 
-const init = async ( ) => {
-  await addUser('Vovan', '89002225544', 'vovan@vovan.ru', 55);
+const updateUser = async (id, user) => {
+  await client('users').where({ id }).update(user);
+};
+
+const init = async () => {
+  //await addUser('Vovan', '89002225544', 'vovan@vovan.ru', 55); // добавление
+
+  await updateUser(7, {
+    name: 'Vovan2',
+  });
   console.log(await getAllUsers());
 
   client.destroy(); // закрываем соединение
