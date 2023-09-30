@@ -51,7 +51,7 @@ const deleteUser = async id => {
 };
 
 const getUserByName = async name =>
-  await client('users').where('name', '=', name);
+  await client('users').where('name', 'iLike', name);
 
 const init = async () => {
   //await addUser('Vovan', '89002225544', 'vovan@vovan.ru', 55); // добавление
@@ -60,7 +60,7 @@ const init = async () => {
   //   name: 'Vovan2',
   // });
   // await deleteUser(6);
-  console.log(await getUserByName('alex'));
+  console.log(await getUserByName('Alex'));
   //console.log(await getAllUsers());
 
   client.destroy(); // закрываем соединение
