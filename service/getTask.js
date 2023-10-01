@@ -1,27 +1,15 @@
 import { read } from '../util/readWriteFile.js';
+import { getTodoById } from './todo.service.js';
 
-export const getTask = id => {
+export const getTask = async id => {
   const getTask = id[0];
-  let taskId = true;
-  const data = read();
-  if (getTask > data.length) {
+
+  const bdTaskId = await getTodoById(getTask);
+  if (bdTaskId.length > 0) {
+    console.log('Задача с идентификатором ' + bdTaskId[0].id + ':');
+    console.log('Название: ' + bdTaskId[0].title);
+    console.log('Статуc: ' + bdTaskId[0].status);
+  } else {
     console.log('Нет такой задачи');
-    return;
   }
-
-  for (const task of data) {
-    if (task.indexOf('.') !== -1) {
-      const idTask = task.substring(0, task.indexOf('.'));
-
-      if (getTask === idTask) {
-        console.log('Задача с идентификатором ' + idTask + ':');
-        console.log('Название: ' + task.substring(task.indexOf('] ') + 2));
-        console.log('Статуc: ' + task.substring(task.indexOf(' [') + 2, task.indexOf(']')));
-        taskId = false;
-      }
-    }
-  }
-
-  if (taskId)
-    console.log('Нет такой задачи');
 };
