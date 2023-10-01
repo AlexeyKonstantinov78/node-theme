@@ -1,4 +1,3 @@
-import { read } from '../util/readWriteFile.js';
 import { getTodoById } from './todo.service.js';
 
 export const getTask = async id => {
