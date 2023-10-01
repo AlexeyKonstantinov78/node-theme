@@ -1,6 +1,6 @@
 import 'dotenv/config';
 //import pg from 'pg';
-import knex, { default as Knex } from 'knex';
+import { default as Knex } from 'knex';
 
 const HOST = process.env.DB_HOST;
 const USER = process.env.DB_USER;
