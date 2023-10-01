@@ -1,7 +1,6 @@
-import { read, write } from '../util/readWriteFile.js';
+import { updateTaskById } from './todo.service.js';
 
-export const statusTask = task => {
-  const data = read();
+export const statusTask = async task => {
   const idTask = task[0];
   try {
     task.shift();
@@ -10,21 +9,12 @@ export const statusTask = task => {
     return;
   }
   const statusTask = task.join(' ');
-  const array = [];
 
   if (!(statusTask === 'Выполнена' || statusTask === 'В работе')) {
     console.log('Нет такого статуса! "В работе" или Выполнена');
     return;
   }
 
-  for (const item of data) {
-    if (item.substring(0, item.indexOf('.')) === idTask) {
-      array.push(item.substring(0, item.indexOf('[') + 1) + statusTask + item.substring(item.indexOf(']')));
-    } else {
-      array.push(item);
-    }
-  }
-
-  write(array);
-  console.log('Статус  задачи с идентификатором ' + idTask + ' обновлен');
+  const bdTodo = await updateTaskById(idTask, { status: `[${statusTask}]` });
+  console.log('Статус задачи с идентификатором ' + bdTodo + ' обновлен');
 };
