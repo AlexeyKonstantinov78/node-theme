@@ -20,7 +20,7 @@ const client = Knex({
 });
 
 export const getAllTodo = async () => {
-  const listTodo = await client('todo');
+  const listTodo = await client('todo').orderBy('id');
   client.destroy();
   return listTodo;
 };
@@ -32,4 +32,22 @@ export const addTodoTask = async (status, title) => {
 
   task.forEach(item =>
     console.log(`Задача добавлена с идентификатором ${item.id}`));
+};
+
+export const getTodoById = async id => {
+  const task = await client('todo').where({ id });
+  client.destroy();
+  return task;
+};
+
+export const updateTaskById = async (id, title) => {
+  const task = await client('todo').where({ id }).update(title).returning('id');
+  client.destroy();
+  return task;
+};
+
+export const deleteId = async id => {
+  const task = await client('todo').where({ id }).delete().returning('id');
+  client.destroy();
+  return task;
 };

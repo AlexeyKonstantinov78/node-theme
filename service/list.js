@@ -1,10 +1,12 @@
-import { read } from '../util/readWriteFile.js';
+import { getAllTodo } from './todo.service.js';
 
-export const listTask = () => {
-  const data = read();
+export const listTask = async () => {
+  const allTodo = await getAllTodo();
 
-  if (data !== undefined)
-    data.forEach(item => console.log(item));
-  else
-    console.log('Список пуст');
+  if (allTodo.length > 0)
+    allTodo.forEach(todo =>
+      console.log(`${todo.id}. ${todo.status} ${todo.title}`));
+  else {
+    console.log('Бд список пуст');
+  }
 };

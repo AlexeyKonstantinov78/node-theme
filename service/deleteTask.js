@@ -1,28 +1,19 @@
 import { read, write } from '../util/readWriteFile.js';
+import { deleteId } from './todo.service.js';
 
-export const deleteTask = task => {
+export const deleteTask = async task => {
   const deleteTask = task[0];
-  let del = true;
 
-  const data = read();
-
-  data.forEach(item => {
-    if (item.includes(deleteTask)) {
-      del = false;
-    }
-  });
-
-  if (del && task[0] === undefined) {
+  if (task[0] === undefined) {
     console.log('Что-то забыли передать');
     return;
   }
 
-  if (del) {
-    console.log('Такой задачи нет ' + deleteTask);
+  const bdDeleteTask = await deleteId(deleteTask);
+
+  if (bdDeleteTask.length === 0) {
+    console.log('Такой задачи нет');
     return;
   }
-
-  const array = data.filter(item => !item.includes(deleteTask));
-  write(array);
-  console.log('Задача с идентификаторам ' + deleteTask + ' удалена');
+  console.log('Задача с идентификаторам ' + bdDeleteTask[0].id + ' удалена');
 };

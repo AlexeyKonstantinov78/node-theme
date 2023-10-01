@@ -12,5 +12,11 @@ export const updateTask = async task => {
   const statusTask = task.join(' ');
 
   const bdTodo = await updateTaskById(idTask, { title: statusTask });
-  console.log('Название задачи с идентификатором ' + bdTodo + ' обновлен');
+  if (bdTodo.length === 0) {
+    console.log('Такой задачи нет');
+    return;
+  }
+  console.log(
+    'Название задачи с идентификатором ' + bdTodo[0].id + ' обновлен'
+  );
 };
